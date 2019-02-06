@@ -5,14 +5,17 @@ RUN apt-get update && \
   apt-get install -y apt-transport-https ca-certificates && \
   apt-get clean all
 
-RUN curl -fsSL get.docker.com -o get-docker.sh
-RUN sh get-docker.sh
+RUN curl -fsSL get.docker.com -o get-docker.sh && \
+  sh get-docker.sh
 
 # put nomad
-RUN curl https://releases.hashicorp.com/nomad/0.4.0/nomad_0.4.0_linux_amd64.zip > nomad.zip
-RUN unzip nomad.zip
+RUN curl https://releases.hashicorp.com/nomad/0.4.0/nomad_0.4.0_linux_amd64.zip > nomad.zip && \
+  unzip nomad.zip
+RUN mkdir /etc/nomad.d/
+COPY ./nomad-server-config/ /etc/nomad.d/
+
 RUN echo "#!/bin/bash" > /usr/bin/nomad && \
-  echo "exec /nomad agent -dev" >> /usr/bin/nomad && \
+  echo "exec /nomad agent -dev -config=/etc/nomad.d/" >> /usr/bin/nomad && \
   chmod 777 /usr/bin/nomad
 
 # put consul
