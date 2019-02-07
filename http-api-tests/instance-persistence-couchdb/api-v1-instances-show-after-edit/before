@@ -14,4 +14,4 @@ docker run --rm -d --net host \
   cluster-broccoli \
   -Dconfig.file=/couchdb.conf > cluster-broccoli.did
 sleep $BROCCOLI_SLEEP_MEDIUM
-curl -s localhost:9000 > /dev/null && echo "Broccoli started successfully" || echo "Broccoli did not start, yet"
+curl -s http://localhost:9000 > /dev/null && echo "Broccoli started successfully" || echo "Broccoli did not start, yet"

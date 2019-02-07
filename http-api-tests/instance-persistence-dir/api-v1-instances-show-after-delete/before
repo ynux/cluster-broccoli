@@ -3,7 +3,7 @@ curl -H 'Content-Type: application/json' \
   -X POST -d '{ "templateId": "http-server", "parameters": { "id": "test-http" } }' \
   'http://localhost:9000/api/v1/instances'
 sleep $BROCCOLI_SLEEP_SHORT
-curl -X DELETE 'localhost:9000/api/v1/instances/test-http'
+curl -X DELETE 'http://localhost:9000/api/v1/instances/test-http'
 sleep $BROCCOLI_SLEEP_SHORT
 docker stop $(cat cluster-broccoli.did)
 sleep $BROCCOLI_SLEEP_SHORT
