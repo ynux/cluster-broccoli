@@ -5,7 +5,7 @@ docker run --rm -d --net host couchdb:1.7.0 > couchdb.did
 sleep $BROCCOLI_SLEEP_MEDIUM
 
 docker run --rm -d --net host \
-  frosner/cluster-broccoli-test \
+  ynux/cluster-broccoli-test \
   cluster-broccoli \
   -Dconfig.file="/couchdb.conf" > cluster-broccoli.did
 
