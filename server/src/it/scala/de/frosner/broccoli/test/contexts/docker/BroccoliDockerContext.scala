@@ -69,7 +69,7 @@ trait BroccoliDockerContext extends AroundEach {
       "-d", // Detach into background
       "--net",
       "host", // Use host network to interconnect all services
-      "frosner/cluster-broccoli-test"
+      "ynux/cluster-broccoli-test"
     ) ++ service.command
     tag[ContainerHandle](run.!!.trim)
   }
