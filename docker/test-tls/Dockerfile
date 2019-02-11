@@ -13,6 +13,7 @@ RUN curl https://releases.hashicorp.com/nomad/0.4.0/nomad_0.4.0_linux_amd64.zip 
   unzip nomad.zip
 RUN mkdir /etc/nomad.d/
 COPY ./nomad-server-config/ /etc/nomad.d/
+COPY ./cluster-broccoli-files/ /
 
 RUN echo "#!/bin/bash" > /usr/bin/nomad && \
   echo "exec /nomad agent -dev -config=/etc/nomad.d/" >> /usr/bin/nomad && \
