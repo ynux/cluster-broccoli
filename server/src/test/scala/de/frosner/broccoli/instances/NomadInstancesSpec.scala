@@ -46,7 +46,7 @@ class NomadInstancesSpec
   )
 
   implicit val nomadConfiguration: NomadConfiguration =
-    NomadConfiguration(url = s"https://localhost:4646", "NOMAD_BROCCOLI_TOKEN", namespacesEnabled = false, "oe")
+    NomadConfiguration(url = s"http://localhost:4646", "NOMAD_BROCCOLI_TOKEN", namespacesEnabled = false, "oe")
 
   def instanceServiceWith(id: String, instance: Option[InstanceWithStatus]): InstanceService =
     mock[InstanceService]

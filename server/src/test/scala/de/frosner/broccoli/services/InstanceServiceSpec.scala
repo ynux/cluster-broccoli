@@ -16,7 +16,7 @@ class InstanceServiceSpec extends Specification with Mockito with ServiceMocks {
     new TemplateRenderer(JinjavaConfig.newBuilder().withFailOnUnknownTokens(true).build())
 
   implicit val nomadConfiguration: NomadConfiguration =
-    NomadConfiguration(url = s"https://localhost:4646", "NOMAD_BROCCOLI_TOKEN", namespacesEnabled = false, "oe")
+    NomadConfiguration(url = s"http://localhost:4646", "NOMAD_BROCCOLI_TOKEN", namespacesEnabled = false, "oe")
 
   val service = new InstanceService(
     nomadClient = mock[NomadClient],
