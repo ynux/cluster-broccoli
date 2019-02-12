@@ -14,8 +14,6 @@ RUN curl https://releases.hashicorp.com/nomad/0.4.0/nomad_0.4.0_linux_amd64.zip 
 RUN mkdir /etc/nomad.d/
 ## nomad certificates and configs
 COPY ./nomad-server-config/ /etc/nomad.d/
-## cluster-broccoli certificates and configs
-COPY ./cluster-broccoli-files/ /
 
 RUN echo "#!/bin/bash" > /usr/bin/nomad && \
   echo "exec /nomad agent -dev -config=/etc/nomad.d/" >> /usr/bin/nomad && \
@@ -33,3 +31,5 @@ ADD cluster-broccoli-dist /cluster-broccoli-dist
 ADD templates /cluster-broccoli-dist/templates
 RUN mkdir /cluster-broccoli-dist/instances
 RUN ln -s /cluster-broccoli-dist/bin/cluster-broccoli /usr/bin/cluster-broccoli
+## cluster-broccoli certificates and configs
+COPY ./cluster-broccoli-files/ /
