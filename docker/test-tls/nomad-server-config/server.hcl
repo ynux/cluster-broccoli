@@ -6,7 +6,7 @@ tls {
   cert_file = "/etc/nomad.d/ssl/server.pem"
   key_file  = "/etc/nomad.d/ssl/server-key.pem"
 
-  verify_server_hostname = true
-  verify_https_client    = true
+  verify_server_hostname = false
+  verify_https_client    = false
 }
 
