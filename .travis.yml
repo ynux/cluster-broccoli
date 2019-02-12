@@ -35,8 +35,11 @@ jobs:
     - stage: integration
       script:
         - . prepare-docker-builds
-        - docker build -t sunygit/cluster-broccoli-test docker/test-tls/
-        - docker push sunygit/cluster-broccoli-test 
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker build -t ynux/cluster-broccoli-test docker/test-tls/
+        - docker images
+        - docker tag ynux/cluster-broccoli-test $DOCKER_USERNAME/cluster-broccoli-test
+        - docker push $DOCKER_USERNAME/cluster-broccoli-test
         - sbt it:test
         - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/instance-persistence-couchdb
         - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-only
