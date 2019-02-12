@@ -12,7 +12,9 @@ RUN curl -fsSL get.docker.com -o get-docker.sh && \
 RUN curl https://releases.hashicorp.com/nomad/0.4.0/nomad_0.4.0_linux_amd64.zip > nomad.zip && \
   unzip nomad.zip
 RUN mkdir /etc/nomad.d/
+## nomad certificates and configs
 COPY ./nomad-server-config/ /etc/nomad.d/
+## cluster-broccoli certificates and configs
 COPY ./cluster-broccoli-files/ /
 
 RUN echo "#!/bin/bash" > /usr/bin/nomad && \
@@ -28,8 +30,6 @@ RUN echo "#!/bin/bash" > /usr/bin/consul && \
 
 # put cluster broccoli
 ADD cluster-broccoli-dist /cluster-broccoli-dist
-# Add configuration to use couchdb
-ADD couchdb.conf /couchdb.conf
 ADD templates /cluster-broccoli-dist/templates
 RUN mkdir /cluster-broccoli-dist/instances
 RUN ln -s /cluster-broccoli-dist/bin/cluster-broccoli /usr/bin/cluster-broccoli
