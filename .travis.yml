@@ -35,7 +35,8 @@ jobs:
     - stage: integration
       script:
         - . prepare-docker-builds
-        - docker build -t ynux/cluster-broccoli-test docker/test-tls/
+        - docker build -t sunygit/cluster-broccoli-test docker/test-tls/
+        - docker push sunygit/cluster-broccoli-test 
         - sbt it:test
         - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/instance-persistence-couchdb
         - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-only
