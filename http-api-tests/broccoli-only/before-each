@@ -1,5 +1,6 @@
 #!/bin/bash
-docker run --rm -d --net host sunygit/cluster-broccoli-test cluster-broccoli -Dconfig.file="/application-tls.conf" -Dbroccoli.nomad.url=https://localhost:4646 > cluster-broccoli.mist
+docker run --name broccoli-only --rm -d --net host sunygit/cluster-broccoli-test cluster-broccoli -Dconfig.file="/application-tls.conf" -Dbroccoli.nomad.url=https://localhost:4646 > cluster-broccoli.mist
 sleep $BROCCOLI_SLEEP_MEDIUM
-cat cluster-broccoli.did
+cat cluster-broccoli.mist
+docker logs broccoli-only
 curl -s http://localhost:9000 > /dev/null && echo "Broccoli started successfully" || echo "Broccoli did not start, yet"
