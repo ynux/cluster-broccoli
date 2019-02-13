@@ -1,8 +1,8 @@
 #!/bin/bash
-docker run --rm -d --net host ynux/cluster-broccoli-test consul > consul.did
+docker run --rm -d --net host sunygit/cluster-broccoli-test consul > consul.did
 sleep $BROCCOLI_SLEEP_MEDIUM
-docker run --rm -d --net host -v /var/run/docker.sock:/var/run/docker.sock ynux/cluster-broccoli-test nomad > nomad.did
+docker run --rm -d --net host -v /var/run/docker.sock:/var/run/docker.sock sunygit/cluster-broccoli-test nomad > nomad.did
 sleep $BROCCOLI_SLEEP_MEDIUM
-docker run --rm -d --net host ynux/cluster-broccoli-test cluster-broccoli -Dconfig.file="/application-tls.conf" -Dbroccoli.nomad.url=https://localhost:4646 > cluster-broccoli.did
+docker run --rm -d --net host sunygit/cluster-broccoli-test cluster-broccoli -Dconfig.file="/application-tls.conf" -Dbroccoli.nomad.url=https://localhost:4646 > cluster-broccoli.did
 sleep $BROCCOLI_SLEEP_MEDIUM
 curl -s http://localhost:9000 > /dev/null && echo "Broccoli started successfully" || echo "Broccoli did not start, yet"

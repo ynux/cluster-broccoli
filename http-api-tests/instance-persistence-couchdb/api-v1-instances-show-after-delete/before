@@ -8,7 +8,7 @@ sleep $BROCCOLI_SLEEP_SHORT
 docker stop $(cat cluster-broccoli.did)
 sleep $BROCCOLI_SLEEP_SHORT
 docker run --rm -d --net host \
-  ynux/cluster-broccoli-test \
+  sunygit/cluster-broccoli-test \
   cluster-broccoli \
   -Dconfig.file=/couchdb-tls.conf > cluster-broccoli.did
 sleep $BROCCOLI_SLEEP_MEDIUM
