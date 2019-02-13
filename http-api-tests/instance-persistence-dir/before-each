@@ -3,6 +3,6 @@ mkdir /tmp/instances
 docker run --rm -d --net host \
   -v /tmp/instances:/cluster-broccoli-dist/instances \
   ynux/cluster-broccoli-test \
-  cluster-broccoli -Dconfig.file="/application-tls.conf" > cluster-broccoli.did
+  cluster-broccoli -Dconfig.file="/application-tls.conf" -Dbroccoli.nomad.url=https://localhost:4646 > cluster-broccoli.did
 sleep $BROCCOLI_SLEEP_MEDIUM
 curl -s http://localhost:9000 > /dev/null && echo "Broccoli started successfully" || echo "Broccoli did not start, yet"
