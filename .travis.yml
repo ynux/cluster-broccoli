@@ -13,6 +13,13 @@ before_script:
   - node --version
   - yarn --version
 
+addons:
+  artifacts: true
+    paths:  
+      - $(git ls-files -o | tr "\n" ":")
+      - cluster-broccoli.mist
+    debug: true
+
 jobs:
   include:
     # Backend tests
