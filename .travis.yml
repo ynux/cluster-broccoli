@@ -14,11 +14,15 @@ before_script:
   - yarn --version
 
 addons:
-  artifacts: true
-    paths:  
+  artifacts:
+    debug: true
+    paths:
       - $(git ls-files -o | tr "\n" ":")
       - cluster-broccoli.mist
-    debug: true
+    target_paths: $TRAVIS_BUILD_NUMBER
+    working_dir: WORKING_DIR
+    bucket: broccolibucket
+    s3_region: eu-central-1
 
 jobs:
   include:
