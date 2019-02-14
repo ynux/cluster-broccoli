@@ -13,17 +13,6 @@ before_script:
   - node --version
   - yarn --version
 
-addons:
-  artifacts:
-    debug: true
-    paths:
-      - $(git ls-files -o | tr "\n" ":")
-      - cluster-broccoli.mist
-    target_paths: $TRAVIS_BUILD_NUMBER
-    working_dir: WORKING_DIR
-    bucket: broccolibucket
-    s3_region: eu-central-1
-
 jobs:
   include:
     # Backend tests
@@ -49,8 +38,9 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker build -t ynux/cluster-broccoli-test docker/test-tls/
         - docker images
-        - docker tag ynux/cluster-broccoli-test $DOCKER_USERNAME/cluster-broccoli-test
-        - docker push $DOCKER_USERNAME/cluster-broccoli-test
+        # for local debugging
+        # docker tag ynux/cluster-broccoli-test $DOCKER_USERNAME/cluster-broccoli-test
+        # docker push $DOCKER_USERNAME/cluster-broccoli-test
         - sbt it:test
         - bash <(curl -s https://raw.githubusercontent.com/ynux/http-api-tester/master/http-api-tester) -v -d http-api-tests/instance-persistence-couchdb
         - bash <(curl -s https://raw.githubusercontent.com/ynux/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-only
