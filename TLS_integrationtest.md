@@ -70,6 +70,6 @@ cluster-broccoli uses `play.ws.ssl.loose.acceptAnyCertificate=true`, and curl us
 
 Note for debugging: It's useful to push the combined dockercontainer to docker hub for debugging. Add this to the travis.yml after the `docker build` (and add the variables to your travis-ci):
 ```
-        - docker tag ynux/cluster-broccoli-test $DOCKER_USERNAME/cluster-broccoli-test
+        - docker tag frosner/cluster-broccoli-test $DOCKER_USERNAME/cluster-broccoli-test
         - docker push $DOCKER_USERNAME/cluster-broccoli-test
 ```
