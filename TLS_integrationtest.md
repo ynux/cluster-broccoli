@@ -1,7 +1,12 @@
 # How to get Broccoli to run with TLS Nomad
 
-### How to tell Broccoli that Nomad speaks https? 
-When it sees the ws.ssl stanza in its application.conf.
+### Broccoli Configuration
+
+We run cluster-broccoli like this:
+```
+docker run --rm -d --net host sunygit/cluster-broccoli-test cluster-broccoli -Dconfig.file="/application-tls.conf" -Dbroccoli.nomad.url=https://localhost:4646 
+```
+So it knows that is should speak https with nomad. The application-tls.conf is standard play stuff:
 ```
     ws.ssl {
       trustManager = {
@@ -20,10 +25,11 @@ When it sees the ws.ssl stanza in its application.conf.
         keymanager = true
       }
     }
+play.ws.ssl.loose.acceptAnyCertificate=true
+
 ```
-### How to secure nomad?
-Self signed, for the integration tests
-installation of cfssl failed on amazon linux due to missing 32 bit libraries, so using vault.
+### Certificate generation
+For the integration tests, we go with self signed certs.  The installation of cfssl failed on amazon linux due to missing 32 bit libraries, so using vault:
 
 1. Install vault, start the server in dev mode, export VAULT\_ADDR='http://127.0.0.1:8200'
 2. Create CA, as in https://www.vaultproject.io/docs/secrets/pki/index.html
@@ -47,13 +53,18 @@ installation of cfssl failed on amazon linux due to missing 32 bit libraries, so
 ### create nomad cli certificate for broccoli to use
 ./vault write pki/issue/integrationtest-role common_name=nomad-cli.integrationtest \
   ttl=87000h alt_names=localhost ip_sans=127.0.0.1 > cli
-### cut the server.pem, server-key.pem files into usable pems, e.g. using https://github.com/ynux/hashicorp-helpers/blob/master/snip_vault_output.sh, cut nomad-ca.pem manually, and copy them into docker/test-tls/nomad-server-config/ssl
+### cut the server.pem, server-key.pem files into usable pems
 ### cut the cli certificate and convert to jks
 openssl pkcs12 -export -inkey cli-key.pem -in cli-chain.pem -name client.global.nomad -out broccoli.global.nomad.p12
 ## keep the export password for the following step
 keytool -importkeystore -srckeystore broccoli.global.nomad.p12 -srcstoretype pkcs12 -destkeystore broccoli.global.nomad.jks
 ## keep the keystore password for the broccoli configuration
 ## add the keystore and the pems to the docker images, add stanza in application config
-## nomad servername and SAN must match ...
 ```
+The integration tests shamelessly drop all verification - don't do that in production. nomad uses
+```
+  verify_server_hostname = false
+  verify_https_client    = false
+```
+cluster-broccoli uses `play.ws.ssl.loose.acceptAnyCertificate=true`, and curl uses "-k".
 
