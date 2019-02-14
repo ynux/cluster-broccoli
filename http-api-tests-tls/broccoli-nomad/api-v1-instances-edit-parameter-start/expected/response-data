@@ -22,7 +22,6 @@
   "Status": "running",
   "StatusDescription": "",
   "Stop": false,
-  "SubmitTime": 1550163333951393000,
   "TaskGroups": [
     {
       "Constraints": null,
