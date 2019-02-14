@@ -35,26 +35,21 @@ jobs:
     - stage: integration
       script:
         - . prepare-docker-builds
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t ynux/cluster-broccoli-test docker/test-tls/
-        - docker images
-        # for local debugging
-        # docker tag ynux/cluster-broccoli-test $DOCKER_USERNAME/cluster-broccoli-test
-        # docker push $DOCKER_USERNAME/cluster-broccoli-test
+        - docker build -t frosner/cluster-broccoli-test docker/test/
         - sbt it:test
-        - bash <(curl -s https://raw.githubusercontent.com/ynux/http-api-tester/master/http-api-tester) -v -d http-api-tests/instance-persistence-couchdb
-        - bash <(curl -s https://raw.githubusercontent.com/ynux/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-only
-        - bash <(curl -s https://raw.githubusercontent.com/ynux/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-nomad
-        - bash <(curl -s https://raw.githubusercontent.com/ynux/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-nomad-consul
-        - bash <(curl -s https://raw.githubusercontent.com/ynux/http-api-tester/master/http-api-tester) -v -d http-api-tests/instance-persistence-dir
+        - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/instance-persistence-couchdb
+        - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-only
+        - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-nomad
+        - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/broccoli-nomad-consul
+        - bash <(curl -s https://raw.githubusercontent.com/FRosner/http-api-tester/master/http-api-tester) -v -d http-api-tests/instance-persistence-dir
     - stage: docker
       script:
         # Publish docker image
-        # - echo "TRAVIS_COMMIT = $TRAVIS_COMMIT"
-        # - echo "TRAVIS_BRANCH = $TRAVIS_BRANCH"
-        # - echo "TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST"
-        # - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        # - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then sbt server/docker:publish; fi'
+        - echo "TRAVIS_COMMIT = $TRAVIS_COMMIT"
+        - echo "TRAVIS_BRANCH = $TRAVIS_BRANCH"
+        - echo "TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST"
+        - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then sbt server/docker:publish; fi'
 
 
 before_cache:
@@ -75,4 +70,5 @@ cache:
     - webui/tests/elm-stuff/build-artifacts
 
 after_success:
-  # - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
+
