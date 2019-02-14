@@ -1,3 +1,0 @@
-#!/bin/bash
-
-grep '{"project":{"name":"Cluster Broccoli"' $1
