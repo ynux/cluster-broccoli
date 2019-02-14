@@ -1,15 +1,15 @@
 {
   "AllAtOnce": false,
   "Constraints": null,
-  "CreateIndex": 47,
+  "CreateIndex": 10,
   "Datacenters": [
     "dc1"
   ],
   "Dispatched": false,
   "ID": "test-http",
-  "JobModifyIndex": 88,
+  "JobModifyIndex": 10,
   "Meta": null,
-  "ModifyIndex": 133,
+  "ModifyIndex": 12,
   "Name": "test-http",
   "Namespace": "default",
   "ParameterizedJob": null,
@@ -19,10 +19,10 @@
   "Priority": 50,
   "Region": "global",
   "Stable": false,
-  "Status": "dead",
+  "Status": "running",
   "StatusDescription": "",
   "Stop": false,
-  "SubmitTime": 1550149844404528400,
+  "SubmitTime": 1550157148853423600,
   "TaskGroups": [
     {
       "Constraints": null,
@@ -58,11 +58,11 @@
         {
           "Artifacts": null,
           "Config": {
-            "command": "/usr/bin/python",
             "args": [
               "-m",
               "SimpleHTTPServer"
-            ]
+            ],
+            "command": "/usr/bin/python"
           },
           "Constraints": null,
           "DispatchPayload": null,
@@ -78,7 +78,7 @@
           "Meta": null,
           "Name": "http-task",
           "Resources": {
-            "CPU": 100,
+            "CPU": 50,
             "DiskMB": 0,
             "IOPS": 0,
             "MemoryMB": 128,
@@ -191,5 +191,5 @@
     "Stagger": 10000000
   },
   "VaultToken": "",
-  "Version": 2
+  "Version": 0
 }
