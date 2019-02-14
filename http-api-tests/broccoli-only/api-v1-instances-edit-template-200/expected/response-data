@@ -1,0 +1,25 @@
+{
+  "id": "test",
+  "parameterValues": {
+    "id": "test"
+  },
+  "status": "unknown",
+  "services": [],
+  "periodicRuns": [],
+  "template": {
+    "id": "jupyter",
+    "description": "Open source, interactive data science and scientific computing across over 40 programming languages.",
+    "parameters": [
+      "id"
+    ],
+    "parameterInfos": {
+      "id": {
+        "id": "id",
+        "type": {
+          "name": "string"
+        }
+      }
+    },
+    "version": "beb88e5f9ca22d3b2d9fa0e91c2bb255"
+  }
+}
