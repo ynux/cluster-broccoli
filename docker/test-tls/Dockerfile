@@ -1,5 +1,6 @@
 FROM java:8
 
+ENV NOMAD_VERSION 0.8.7
 # install docker libraries
 RUN apt-get update && \
   apt-get install -y apt-transport-https ca-certificates && \
@@ -9,7 +10,7 @@ RUN curl -fsSL get.docker.com -o get-docker.sh && \
   sh get-docker.sh
 
 # put nomad
-RUN curl https://releases.hashicorp.com/nomad/0.4.0/nomad_0.4.0_linux_amd64.zip > nomad.zip && \
+RUN curl https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_linux_amd64.zip > nomad.zip && \
   unzip nomad.zip
 RUN mkdir /etc/nomad.d/
 ## nomad certificates and configs
