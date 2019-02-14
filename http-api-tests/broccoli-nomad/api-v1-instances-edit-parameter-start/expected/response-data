@@ -1,15 +1,15 @@
 {
   "AllAtOnce": false,
   "Constraints": null,
-  "CreateIndex": 10,
+  "CreateIndex": 9,
   "Datacenters": [
     "dc1"
   ],
   "Dispatched": false,
   "ID": "test-http",
-  "JobModifyIndex": 10,
+  "JobModifyIndex": 9,
   "Meta": null,
-  "ModifyIndex": 12,
+  "ModifyIndex": 11,
   "Name": "test-http",
   "Namespace": "default",
   "ParameterizedJob": null,
@@ -22,7 +22,7 @@
   "Status": "running",
   "StatusDescription": "",
   "Stop": false,
-  "SubmitTime": 1550157148853423600,
+  "SubmitTime": 1550163333951393000,
   "TaskGroups": [
     {
       "Constraints": null,

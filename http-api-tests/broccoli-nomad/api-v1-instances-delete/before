@@ -9,3 +9,7 @@ curl -H 'Content-Type: application/json' \
 sleep $BROCCOLI_SLEEP_SHORT
 curl -X DELETE 'http://localhost:9000/api/v1/instances/test-http'
 sleep $BROCCOLI_SLEEP_SHORT
+# remove the dead job
+curl -k -X PUT https://localhost:4646/v1/system/gc
+sleep $BROCCOLI_SLEEP_SHORT
+
